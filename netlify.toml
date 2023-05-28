@@ -1,0 +1,13 @@
+[build]
+
+  # Specifies the command to build the app
+  command = "npm run build"
+
+  # Specifies the directory to deploy the app from
+  publish = "build/"
+
+[[redirects]]
+  # Redirects all URLs to the index.html file
+  from = "/*"
+  to = "/public/index.html"
+  status = 200
