@@ -47,7 +47,7 @@ function App() {
               <div className="post-image">
                 <img src={post.image} alt={post.alt} />
               </div>
-              <div>{post.title}</div>
+              <div className="post-title">{post.title}</div>
           </div>
         ))}
         <div className="input-container">
