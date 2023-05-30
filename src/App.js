@@ -19,10 +19,12 @@ function App() {
   };
 
   const newPostMutation = useMutation(
-    title => {
+    ({ title, image }) => {
       const newPost = {
         id: crypto.randomUUID(),
-        title,
+        title, 
+        image: URL.createObjectURL(image),
+        alt: image.name,
       };
       POSTS.push(newPost);
       return wait(1000).then(() => newPost);
@@ -59,8 +61,9 @@ function App() {
         <button
           disabled={newPostMutation.isLoading}
           onClick={() => {
-            newPostMutation.mutate(newPostTitle);
+            newPostMutation.mutate({ title: newPostTitle, image: newPostImage });
             setNewPostTitle('');
+            setNewPostImage(null); 
           }}
         >
           Add New
