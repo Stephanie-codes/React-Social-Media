@@ -5,11 +5,18 @@ import { POSTS } from './posts.js';
 
 function App() {
   const [newPostTitle, setNewPostTitle] = useState('');
+  const [newPostImage, setNewPostImage] = useState(null); 
   const queryClient = useQueryClient()
+
   const postsQuery = useQuery({
     queryKey: ["posts"],
     queryFn: () => wait(1000).then(() => [...POSTS])
   })
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setNewPostImage(file);
+  };
 
   const newPostMutation = useMutation(
     title => {
@@ -34,7 +41,12 @@ function App() {
     return (
       <div className='container'>
         {postsQuery.data.map(post => (
-          <div className="post-container" key={post.id}>{post.title}</div>
+          <div className="post-container" key={post.id}>
+              <div className="post-image">
+                <img src={post.image} alt={post.alt} />
+              </div>
+              <div>{post.title}</div>
+          </div>
         ))}
         <div className="input-container">
           <input
@@ -42,6 +54,7 @@ function App() {
             value={newPostTitle}
             onChange={e => setNewPostTitle(e.target.value)}
           />
+          <input type="file" onChange={handleImageUpload} />
         </div>
         <button
           disabled={newPostMutation.isLoading}
