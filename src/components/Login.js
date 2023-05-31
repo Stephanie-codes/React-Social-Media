@@ -12,6 +12,7 @@ export default function Login() {
 
     return (
         <main id='form1'>
+            <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <label for="email">email</label>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" 

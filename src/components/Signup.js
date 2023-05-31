@@ -13,9 +13,11 @@ export default function Signup() {
 
     return (
         <main id='form1'>
+            <h2>Sign up</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Full name</label>
-                <input value={name} name="name" id="name" placeholder="full name" />
+                <input value={name} name="name" id="name" onChange={(e) => setName(e.target.value)} type="name" 
+                placeholder="full name" />
                 <label htmlFor="email">email</label>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" 
                 placeholder="youremail@gmail.com" id="email" name="email" />
