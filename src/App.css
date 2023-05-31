@@ -8,6 +8,34 @@ html {
   }
 }
 
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .header {
+    margin-left: 1.5rem;
+  }
+}
+
+.header a {
+  color: blue;
+  text-decoration: none;
+  margin-right: 1.5rem;
+}
+
+.header a:hover {
+  transform: scale(1.4);
+}
+
+.header a.active {
+  font-weight: bolder;
+}
+
 .container {
   max-width: 600px;
   margin: 0 auto;

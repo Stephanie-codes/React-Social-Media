@@ -1,79 +1,27 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import React, { useState } from 'react';
 import './App.css';
-import { POSTS } from './posts.js';
+import React from 'react';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import Feed from '../src/components/Feed.js';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import MyProfile from './components/Profile';
+import Messages from './components/Messages';
 
-function App() {
-  const [newPostTitle, setNewPostTitle] = useState('');
-  const [newPostImage, setNewPostImage] = useState(null); 
-  const queryClient = useQueryClient()
 
-  const postsQuery = useQuery({
-    queryKey: ["posts"],
-    queryFn: () => wait(1000).then(() => [...POSTS])
-  })
+import Root from './components/Root';
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    setNewPostImage(file);
-  };
+const router = createBrowserRouter( createRoutesFromElements (
+  <Route path='/' element={ <Root/> }>
+    <Route path='' element={ <Feed /> } />
+    <Route path='signup' element={ <Signup /> } />
+    <Route path='login' element={ <Login /> } />
+    <Route path='myprofile' element={ <MyProfile /> } />  
+    <Route path='messages' element={ <Messages /> } />  
+  </Route>
+));
 
-  const newPostMutation = useMutation(
-    ({ title, image }) => {
-      const newPost = {
-        id: crypto.randomUUID(),
-        title, 
-        image: URL.createObjectURL(image),
-        alt: image.name,
-      };
-      POSTS.push(newPost);
-      return wait(1000).then(() => newPost);
-    },
-    {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["posts"])
-    }
-  })
-
-  if (postsQuery.isLoading) return <h1>Loading...</h1>
-  if (postsQuery.isError) {
-    return <pre>{JSON.stringify(postsQuery.error)}</pre>
-  }
-
-    return (
-      <div className='container'>
-        {postsQuery.data.map(post => (
-          <div className="post-container" key={post.id}>
-              <div className="post-image">
-                <img src={post.image} alt={post.alt} />
-              </div>
-              <div className="post-title">{post.title}</div>
-          </div>
-        ))}
-        <div className="input-container">
-          <input
-            type="text"
-            value={newPostTitle}
-            onChange={e => setNewPostTitle(e.target.value)}
-          />
-          <input type="file" onChange={handleImageUpload} />
-        </div>
-        <button
-          disabled={newPostMutation.isLoading}
-          onClick={() => {
-            newPostMutation.mutate({ title: newPostTitle, image: newPostImage });
-            setNewPostTitle('');
-            setNewPostImage(null); 
-          }}
-        >
-          Add New
-        </button>
-      </div>
-    );
-  }
-
-function wait(duration) {
-  return new Promise(resolve => setTimeout(resolve, duration))
+export default function App() {
+  return (
+    <RouterProvider router={ router } />
+  );
 }
-
-export default App;
