@@ -22,7 +22,7 @@ export default function Signup() {
                 <label htmlFor="password">password</label>
                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" 
                 placeholder="*********" id="password" name="password" />
-                <button type="submit">Log In</button>
+                <button type="submit">Sign up</button>
             </form>
             <button>Already have an account? <NavLink to="/login">Login here</NavLink></button>
         </main>
