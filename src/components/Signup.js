@@ -12,7 +12,7 @@ export default function Signup() {
     }
 
     return (
-        <main id='login'>
+        <main id='form1'>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Full name</label>
                 <input value={name} name="name" id="name" placeholder="full name" />
