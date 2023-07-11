@@ -47,19 +47,8 @@ export default function Feed() {
   }
 
     return (
+
       <div className='container'>
-        {postsQuery.data.map(post => (
-          <div className="post-container" key={post.id}>
-              <div className="post-image">
-                <img src={post.image} alt={post.alt} />
-              </div>
-              <div className="post-title">{post.title}</div>
-              <div className='likes'>
-                <button onClick={handleLike}>Like</button>
-                <span className='feed-likes'>{likes}</span>
-              </div>
-          </div>
-        ))}
         <div className="input-container">
           <input
             type="text"
@@ -78,6 +67,20 @@ export default function Feed() {
         >
           Add New
         </button>
+
+        {postsQuery.data.map(post => (
+          <div className="post-container" key={post.id}>
+              <div className="post-image">
+                <img src={post.image} alt={post.alt} />
+              </div>
+              <div className="post-title">{post.title}</div>
+              <div className='likes'>
+                <button onClick={handleLike}>Like</button>
+                <span className='feed-likes'>{likes}</span>
+              </div>
+          </div>
+        ))}
+
       </div>
     );
   }
